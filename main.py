@@ -25,6 +25,10 @@ def index():
 def about():
     return bottle.template('about.tpl.html')
 
+@app.route('/3d')
+def three_d():
+    return bottle.template('3dmodel.tpl.html')
+
 @app.route('/contact')
 def contact():
     return bottle.template('contact.tpl.html', TURNSTILE_KEY=TURNSTILE_KEY)
