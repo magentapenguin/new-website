@@ -14,20 +14,22 @@
                 <p class="card-text">{{ project.description }}</p>
             </div>
             <div class="card-footer">
-                <a href="{{ project.url }}" class="btn btn-link link-body-emphasis fs-4 align-middle link-opacity-50 link-opacity-75-hover" target="_blank">
+                % if project.url:
+                <a href="{{ project.url }}" class="btn btn-link link-body-emphasis fs-4 align-middle link-opacity-50 link-opacity-100-hover" target="_blank">
                     <i class="fa-regular fa-globe"></i>
                     <span class="visually-hidden">Website</span>
                 </a>
-                % if project.github:
-                <a href="{{ project.github }}" class="btn btn-link link-body-emphasis fs-4 align-middle link-opacity-50 link-opacity-75-hover" target="_blank">
-                    <i class="fa-brands fa-github"></i>
-                    <span class="visually-hidden">GitHub</span>
-                </a>
                 % end
                 % if project.itch:
-                <a href="{{ project.itch }}" class="btn btn-link link-danger fs-4 align-middle link-opacity-50 link-opacity-75-hover" target="_blank">
+                <a href="{{ project.itch }}" class="btn btn-link link-itch-io fs-4 align-middle link-opacity-50 link-opacity-100-hover" target="_blank">
                     <i class="fa-brands fa-itch-io"></i>
                     <span class="visually-hidden">Itch.io</span>
+                </a>
+                % end
+                % if project.github:
+                <a href="{{ project.github }}" class="btn btn-link link-body-emphasis fs-4 align-middle link-opacity-50 link-opacity-100-hover" target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                    <span class="visually-hidden">GitHub</span>
                 </a>
                 % end
             </div>

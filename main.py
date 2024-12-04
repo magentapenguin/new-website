@@ -5,7 +5,7 @@ class Project:
     name: str
     description: str
     image: str
-    url: str
+    url: str | None = None
     github: str | None = None
     itch: str | None = None
 
@@ -47,6 +47,13 @@ def projects():
             image='/static/placeholder.png',
             url='https://cat5python.com',
             github='https://github.com/magentapenguin/new-website',
+            ),
+        Project(
+            name='Stickman Jump Game',
+            description='A simple platformer game. Made with Kaboom.js. Development on hold.',
+            image='/static/jumpgame.png',
+            itch='https://magentapenguin.itch.io/platformer',
+            github='https://github.com/magentapenguin/my-coding-stuff/tree/main/platformer',
             ),
     ])
 
