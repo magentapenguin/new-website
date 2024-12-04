@@ -1,0 +1,37 @@
+% rebase('base.tpl.html')
+
+<h1>Projects</h1>
+
+<p>Here are some of the projects I am working on:</p>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    % for project in projects:
+    <div class="col">
+        <div class="card h-100 shadow">
+            <img src="{{ project.image }}" class="card-img-top" alt="{{ project.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ project.name }}</h5>
+                <p class="card-text">{{ project.description }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{{ project.url }}" class="btn btn-link link-body-emphasis fs-4 align-middle link-opacity-50 link-opacity-75-hover" target="_blank">
+                    <i class="fa-regular fa-globe"></i>
+                    <span class="visually-hidden">Website</span>
+                </a>
+                % if project.github:
+                <a href="{{ project.github }}" class="btn btn-link link-body-emphasis fs-4 align-middle link-opacity-50 link-opacity-75-hover" target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                    <span class="visually-hidden">GitHub</span>
+                </a>
+                % end
+                % if project.itch:
+                <a href="{{ project.itch }}" class="btn btn-link link-danger fs-4 align-middle link-opacity-50 link-opacity-75-hover" target="_blank">
+                    <i class="fa-brands fa-itch-io"></i>
+                    <span class="visually-hidden">Itch.io</span>
+                </a>
+                % end
+            </div>
+        </div>
+    </div>
+    % end
+</div>
