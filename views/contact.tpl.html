@@ -47,6 +47,9 @@
                         <label for="message" class="form-label">Message <span class="text-danger">(Required)</span></label>
                         <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
                     </div>
+                    <div class="mb-3">
+                        <div class="cf-turnstile" data-sitekey="{{ TURNSTILE_KEY }}"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

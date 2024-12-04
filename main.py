@@ -27,7 +27,7 @@ def about():
 
 @app.route('/contact')
 def contact():
-    return bottle.template('contact.tpl.html')
+    return bottle.template('contact.tpl.html', TURNSTILE_KEY=TURNSTILE_KEY)
 
 @app.route('/projects')
 def projects():
