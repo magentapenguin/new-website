@@ -1,0 +1,58 @@
+% rebase('base.tpl.html')
+
+<h1>Contact</h1>
+
+<p>Feel free to contact me if you have any questions or comments.</p>
+
+<h4>Contact Methods</h4>
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">
+        <a href="mailto:someone@cat5python.com" class="icon-link">
+            <i class="fa-solid fa-envelope"></i>
+            Email
+        </a>
+    </li>
+    <li class="list-group-item">
+        <a href="https://discord.gg/qrkdS85Wcn" class="icon-link">
+            <i class="fa-brands fa-discord"></i>
+            Discord
+        </a>
+    </li>
+    <li class="list-group-item">
+        <button class="icon-link btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#contact-form">
+            <i class="fa-solid fa-comment"></i>
+            Contact Form (slow)
+        </button>
+    </li>
+</ul>
+<!-- Contact Form -->
+<div class="modal fade" id="contact-form">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Contact Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/contact/form" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Durd Meepman">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message <span class="text-danger">(Required)</span></label>
+                        <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

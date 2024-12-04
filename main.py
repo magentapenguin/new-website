@@ -1,4 +1,9 @@
-import bottle, dataclasses
+import bottle, dataclasses, os, dotenv
+
+dotenv.load_dotenv()
+
+TURNSTILE_KEY = os.getenv('TURNSTILE_KEY')
+TURNSTILE_SECRET = os.getenv('TURNSTILE_SECRET')
 
 @dataclasses.dataclass
 class Project:
