@@ -11,6 +11,9 @@ const setTheme = (theme) => {
             option.classList.remove('active');
         }
     });
+    // set the picker to the current theme icon
+    picker.querySelector('button').innerHTML = picker.querySelector(`[data-value="${theme}"] > i`).outerHTML+'<span class="visually-hidden">Color Theme Picker</span>';
+
     if (theme === 'auto') {
         applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     } else {
@@ -20,8 +23,6 @@ const setTheme = (theme) => {
 const applyTheme = (theme) => {
     document.documentElement.setAttribute('data-bs-theme', theme);
 }
-
-setTheme(theme);
 
 // Watch for changes to localStorage
 window.addEventListener('storage', e => {
@@ -37,8 +38,11 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e =
     }
 });
 
-picker.querySelectorAll('[data-value]').forEach(option => {
-    option.addEventListener('click', e => {
-        setTheme(option.dataset.value);
+window.addEventListener('DOMContentLoaded', () => {
+    picker.querySelectorAll('[data-value]').forEach(option => {
+        option.addEventListener('click', e => {
+            setTheme(option.dataset.value);
+        });
     });
+    setTheme(theme);
 });

@@ -1,4 +1,4 @@
-import bottle, dataclasses, os, dotenv
+import bottle, dataclasses, os, dotenv, requests
 
 dotenv.load_dotenv()
 
@@ -29,9 +29,20 @@ def about():
 def three_d():
     return bottle.template('3dmodel.tpl.html')
 
-@app.route('/contact')
+@app.route('/contact', method=['GET', 'POST'])
 def contact():
+    if bottle.request.method == 'POST':
+        # Get the form data
+        token = bottle.request.forms.get('cf-turnstile-response')
+        ip = bottle.request.headers.get('CF-Connecting-IP')
+        if not token:
+            return bottle.template('contact.tpl.html', TURNSTILE_KEY=TURNSTILE_KEY, error='Please complete the CAPTCHA.')
+        # Verify the token
+        url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+        result = requests.post(url, json={'response': token, 'secret': TURNSTILE_SECRET, 'remoteip': ip})
+
     return bottle.template('contact.tpl.html', TURNSTILE_KEY=TURNSTILE_KEY)
+
 
 @app.route('/projects')
 def projects():
