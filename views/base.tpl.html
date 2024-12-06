@@ -16,7 +16,6 @@
             }
         }
     </script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/dist/model-viewer-module.min.js"></script>
     <style>
         #theme-picker > button > svg {
             vertical-align: middle;
@@ -37,7 +36,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md bg-body-tertiary sticky-top">
+    <nav class="navbar navbar-expand-md bg-body-tertiary {{ "sticky-top" if get("stickynav",True) else "" }}">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">cat5python.com</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
