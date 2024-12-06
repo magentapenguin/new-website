@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cat5python.com</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/433c98b60c.js" crossorigin="anonymous"></script>
-    <script async src="https://ga.jspm.io/npm:es-module-shims@1.7.1/dist/es-module-shims.js"></script>
-    <script type="importmap">
+    <script src="https://kit.fontawesome.com/433c98b60c.js" crossorigin="anonymous" defer data-auto-replace-svg="nest"></script>
+    <script async src="https://unpkg.com/es-module-shims@1.7.1/dist/es-module-shims.js"></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+    <script type="importmap-shim">
         {
             "imports": {
                 "three": "https://cdn.jsdelivr.net/npm/three@^0.171.0/build/three.module.min.js",
@@ -17,7 +18,7 @@
         }
     </script>
     <style>
-        #theme-picker > button > svg {
+        #theme-picker > button svg {
             vertical-align: middle;
         }
         #theme-picker {
@@ -34,15 +35,22 @@
             text-decoration-color: RGBA(250, 92, 92, var(--bs-link-underline-opacity, 1)) !important;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-title], [data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        })
+    </script>
+    <script src="/static/themepicker.js" defer></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md bg-body-tertiary {{ "sticky-top" if get("stickynav",True) else "" }}">
-        <div class="container-fluid">
+        <div class="container-xl">
             <a class="navbar-brand" href="/">cat5python.com</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbar">
+            <div class="collapse navbar-collapse " id="navbar">
                 <ul class="navbar-nav me-auto mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
@@ -56,22 +64,22 @@
                 </ul>
                 <div class="dropdown dropstart" id="theme-picker">
                     <!-- color scheme picker -->
-                    <button class="btn border-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn border-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-title="Color Theme Picker" data-bs-placement="bottom">
                         <i class="fa-solid fa-circle-half-stroke"></i>
-                        <span class="visually-hidden">Color Scheme</span>
+                        <span class="visually-hidden">Color Theme Picker</span>
                     </button>  
                     <ul class="dropdown-menu pt-0">
-                        <li><h6 class="dropdown-header">Choose a scheme</h6></li>
+                        <li><h6 class="dropdown-header">Choose a theme</h6></li>
                         <li>
-                            <button class="dropdown-item" data-value="light"><i class="fa-solid fa-sun me-1"></i>
+                            <button type="button" class="dropdown-item" data-value="light"><i class="fa-solid fa-sun me-1 fa-fw"></i>
                                 Light</button>
                         </li>
                         <li>
-                            <button class="dropdown-item" data-value="dark"><i class="fa-solid fa-moon-stars me-1"></i>
+                            <button type="button" class="dropdown-item" data-value="dark"><i class="fa-solid fa-moon me-1 fa-fw"></i>
                                 Dark</button>
                         </li>
                         <li>
-                            <button class="dropdown-item" data-value="auto"><i class="fa-solid fa-circle-half-stroke me-1"></i>
+                            <button type="button" class="dropdown-item" data-value="auto"><i class="fa-solid fa-circle-half-stroke me-1 fa-fw"></i>
                                 Auto</button>
                         </li>
                     </ul>
@@ -82,7 +90,6 @@
     <div class="container-md mt-4">
         {{!base}}
     </div>
-    <script src="/static/themepicker.js"></script>
     <script src="/static/navhighlight.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
