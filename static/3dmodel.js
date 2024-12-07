@@ -15,7 +15,7 @@ const container = document.getElementById('model');
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer( { antialias: true } );
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 const controls = new OrbitControls(camera, renderer.domElement);
 /*
 const composer = new EffectComposer( renderer );
@@ -28,7 +28,7 @@ composer.addPass( outputPass );
 */
 const light = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(light);
-const pointlight = new THREE.SpotLight(0xffffff, 30 ,0, Math.PI / 2);
+const pointlight = new THREE.SpotLight(0xffffff, 30, 0, Math.PI / 2);
 scene.add(pointlight);
 const loader = new GLTFLoader();
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -36,7 +36,7 @@ renderer.setClearColor(0x222222, 1);
 renderer.setSize(container.clientWidth, container.clientHeight);
 container.appendChild(renderer.domElement);
 
-camera.position.set(0,10,0);
+camera.position.set(0, 10, 0);
 
 let model;
 
@@ -58,7 +58,7 @@ function renderScene() {
     //composer.render();
 }
 if (!WebGL.isWebGL2Available()) {
-    container.appendChild(THREE.WEBGL.getWebGL2ErrorMessage());
+    container.appendChild(WebGL.getWebGL2ErrorMessage());
 } else {
     renderScene();
 }

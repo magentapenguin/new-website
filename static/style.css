@@ -1,0 +1,17 @@
+/* Error: Expected "in".
+ *    ,
+ * 17 | @each $color 
+ *    |              ^
+ *    '
+ *   scss/custom.scss 17:14  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: 'Error: Expected "in".\a    \2577 \a 17 \2502  @each $color \a    \2502               ^\a    \2575 \a   scss/custom.scss 17:14  root stylesheet';
+}
