@@ -28,7 +28,7 @@ def _get_public_keys():
 
 def verify_access_token(f):
     def wrapper(*args, **kwargs):
-        access_token = bottle.request.get_header("Cf-Access-Jwt-Assertion", bottle.request.get_cookie("CF_token"))
+        access_token = bottle.request.get_header("Cf-Access-Jwt-Assertion", bottle.request.get_cookie("CF_Authorization"))
         if not access_token:
             return bottle.HTTPError(403, "Forbidden")
         public_keys = _get_public_keys()
@@ -44,11 +44,9 @@ def verify_access_token(f):
                 now = int(time.time())
                 if now < payload["iat"] or now > payload["exp"]:
                     return bottle.HTTPError(403, "Forbidden")
-                bottle.response.set_cookie("CF_token", access_token, httponly=True, secure=True)
                 return f(*args, **kwargs)
             except jwt.exceptions.InvalidTokenError:
                 continue
-        bottle.response.delete_cookie("CF_token")
         return bottle.HTTPError(403, "Forbidden")
     return wrapper
 @dataclasses.dataclass
