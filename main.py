@@ -1,4 +1,4 @@
-import bottle, dataclasses, os, dotenv, requests
+import bottle, dataclasses, os, dotenv, requests, githubchecker
 
 dotenv.load_dotenv()
 
