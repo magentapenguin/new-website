@@ -1,2 +1,4 @@
 bottle==0.13.2
 python-dotenv==1.0.1
+github3.py==4.0.1
+gevent==24.11.1

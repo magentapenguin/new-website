@@ -1,4 +1,4 @@
-import github, sched, time, os, sys
+import github, sched, time, os, sys, threading
 
 gh = github.Github()
 repo = gh.get_repo("magentapenguin/new-website")
@@ -16,6 +16,9 @@ def check():
                 print("New updates found!")
                 with open("latest_commit.txt", "w") as f:
                     f.write(latest_commit.sha)
+                # Fetch the latest changes
+                print("Fetching latest changes...")
+                os.system("git pull")
                 print("Restarting server...")
                 time.sleep(1)
                 os.execl(sys.executable, sys.executable, *sys.argv)
@@ -25,6 +28,13 @@ def check():
         print("Initial commit saved.")
 
 
-s = sched.scheduler(time.time, time.sleep)
-s.enter(5, 1, check)
-s.run()
+def main():
+    def _main():
+        s = sched.scheduler(time.time, time.sleep)
+        s.enter(5, 1, check)
+        s.run()
+    p = threading.Thread(target=_main, daemon=True)
+    p.start()
+
+if __name__ == "__main__":
+    main()

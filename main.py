@@ -1,3 +1,4 @@
+import gevent.monkey; gevent.monkey.patch_all()
 import bottle, dataclasses, os, dotenv, requests, githubchecker
 
 dotenv.load_dotenv()
@@ -108,6 +109,6 @@ def projects():
 def static(filename):
     return bottle.static_file(filename, root="static")
 
-
+githubchecker.main()
 if __name__ == "__main__":
-    bottle.run(app=app, host="0.0.0.0", port=PORT, debug=True)
+    bottle.run(app=app, host="0.0.0.0", port=PORT, debug=True, server="gevent")
