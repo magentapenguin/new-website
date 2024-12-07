@@ -4,6 +4,7 @@ dotenv.load_dotenv()
 
 TURNSTILE_KEY = os.getenv("TURNSTILE_KEY")
 TURNSTILE_SECRET = os.getenv("TURNSTILE_SECRET")
+PORT = os.getenv("PORT", 8080)
 
 
 @dataclasses.dataclass
@@ -29,6 +30,10 @@ def index():
 def about():
     return bottle.template("about.tpl.html")
 
+@app.route("/blog")
+@app.route("/blag") # xkcd reference
+def blag():
+    return bottle.template("blog.tpl.html")
 
 @app.route("/3d")
 def three_d():
@@ -105,4 +110,4 @@ def static(filename):
 
 
 if __name__ == "__main__":
-    bottle.run(app=app, host="0.0.0.0", port=8080, debug=True)
+    bottle.run(app=app, host="0.0.0.0", port=PORT, debug=True)

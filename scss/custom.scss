@@ -16,8 +16,9 @@ $primary: #7a00c0;
 
 @each $name, $color in $theme-colors {
   .callout-#{$name} {
-    border-left: 5px solid var(--bs-#{$name}-subtle-border);
-    background-color: var(--bs-#{$name}-subtle);
-    color: var(--bs-#{$name}-subtle-text);
+    border-left: 5px solid var(--bs-#{$name}-border-subtle);
+    background-color: var(--bs-#{$name}-bg-subtle);
+    color: var(--bs-#{$name}-text-subtle);
+    padding: $spacer;
   }
 }

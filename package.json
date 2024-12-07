@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "sass": "^1.82.0"
+  },
+  "scripts": {
+    "build-css": "npx sass ./scss/styles.scss ./css/styles.css"
   }
 }

@@ -1,0 +1,23 @@
+{
+    "$schema": "https://www.cat5python.com/static/pihost.schema.json",
+    "run": {
+        "command": "python main.py"
+    },
+    "build": {
+        "command": "npm run build-css"
+    },
+    "install": {
+        "command": [
+            "npm ci",
+            "pip install -r requirements.txt"
+        ]
+    },
+    "git": {
+        "repo": "git@github.com:magentapenguin/new-website.git",
+        "branch": "master",
+        "commands": [
+            "git pull origin master"
+        ],
+        "interval": "1d"
+    }
+}
