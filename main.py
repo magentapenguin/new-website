@@ -1,6 +1,6 @@
 import gevent.monkey; gevent.monkey.patch_all()
-import install
 import bottle, dataclasses, os, dotenv, requests, githubchecker
+import jwt, json, time
 
 dotenv.load_dotenv()
 
@@ -8,7 +8,49 @@ TURNSTILE_KEY = os.getenv("TURNSTILE_KEY")
 TURNSTILE_SECRET = os.getenv("TURNSTILE_SECRET")
 PORT = os.getenv("PORT", 8080)
 
+# Cloudflare Access
+ACCESS_POLICY_AUD = os.getenv("POLICY_AUD")
+ACCESS_TEAM_DOMAIN = os.getenv("TEAM_DOMAIN")
+ACCESS_CERTS_URL = "{}/cdn-cgi/access/certs".format(ACCESS_TEAM_DOMAIN)
 
+def _get_public_keys():
+    """
+    Returns:
+        List of RSA public keys usable by PyJWT.
+    """
+    r = requests.get(ACCESS_CERTS_URL)
+    public_keys = []
+    jwk_set = r.json()
+    for key_dict in jwk_set['keys']:
+        public_key = jwt.algorithms.RSAAlgorithm.from_jwk(json.dumps(key_dict))
+        public_keys.append(public_key)
+    return public_keys
+
+def verify_access_token(f):
+    def wrapper(*args, **kwargs):
+        access_token = bottle.request.get_header("Cf-Access-Jwt-Assertion", bottle.request.get_cookie("CF_token"))
+        if not access_token:
+            return bottle.HTTPError(403, "Forbidden")
+        public_keys = _get_public_keys()
+        for public_key in public_keys:
+            try:
+                payload = jwt.decode(access_token, public_key, audience=ACCESS_POLICY_AUD)
+                # Check if the user is a member of the team
+                if payload["groups"] and "everyone" not in payload["groups"]:
+                    return bottle.HTTPError(403, "Forbidden")
+                payload["email"] = payload["email"].lower()
+                kwargs["payload"] = payload
+                # check timestamps
+                now = int(time.time())
+                if now < payload["iat"] or now > payload["exp"]:
+                    return bottle.HTTPError(403, "Forbidden")
+                bottle.response.set_cookie("CF_token", access_token, httponly=True, secure=True)
+                return f(*args, **kwargs)
+            except jwt.exceptions.InvalidTokenError:
+                continue
+        bottle.response.delete_cookie("CF_token")
+        return bottle.HTTPError(403, "Forbidden")
+    return wrapper
 @dataclasses.dataclass
 class Project:
     name: str
@@ -41,9 +83,12 @@ def blag():
 def three_d():
     return bottle.template("3dmodel.tpl.html")
 
+@app.error(404)
+@app.error(403)
 @app.error()
 def error(error):
     return bottle.template("error.tpl.html", error=error, code=error.status_code, message=error.body)
+
 
 
 @app.route("/contact", method=["GET", "POST"])
@@ -71,9 +116,12 @@ def contact():
                 TURNSTILE_KEY=TURNSTILE_KEY,
                 error="CAPTCHA verification failed.",
             )
-
     return bottle.template("contact.tpl.html", TURNSTILE_KEY=TURNSTILE_KEY)
 
+@app.route("/admin")
+@verify_access_token
+def admin(payload=None):
+    return bottle.template("admin.tpl.html", payload=payload)
 
 @app.route("/projects")
 def projects():
