@@ -1,4 +1,5 @@
 import gevent.monkey; gevent.monkey.patch_all()
+import install
 import bottle, dataclasses, os, dotenv, requests, githubchecker
 
 dotenv.load_dotenv()
@@ -39,6 +40,10 @@ def blag():
 @app.route("/3d")
 def three_d():
     return bottle.template("3dmodel.tpl.html")
+
+@app.error()
+def error(error):
+    return bottle.template("error.tpl.html", error=error, code=error.status_code, message=error.body)
 
 
 @app.route("/contact", method=["GET", "POST"])

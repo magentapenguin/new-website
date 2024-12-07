@@ -1,0 +1,20 @@
+% rebase('base.tpl.html')
+<h1>Sorry!</h1>
+<h2>There was an error processing your request.</h2>
+<p>Please try again later.</p>
+<a href="/" class="link-offset-2 link-underline-opacity-25 icon-link">
+    <i class="fa-regular fa-house-chimney"></i>
+    Return to the home page
+</a><br>
+or<br>
+<a href="#" class="link-offset-2 link-underline-opacity-25 icon-link" id="back">
+    <i class="fa-regular fa-backward"></i>
+    Go Back
+</a>
+<script>
+    document.getElementById('back').addEventListener('click', function() {
+        window.history.back();
+    });
+</script>
+<hr>
+<p>{{ code }}: {{ message }}</p>

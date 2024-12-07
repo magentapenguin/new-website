@@ -31,8 +31,9 @@ def check():
 def main():
     def _main():
         s = sched.scheduler(time.time, time.sleep)
-        s.enter(5, 1, check)
-        s.run()
+        while True:
+            s.enter(120, 1, check)
+            s.run()
     p = threading.Thread(target=_main, daemon=True)
     p.start()
 
