@@ -2,4 +2,5 @@ bottle==0.13.2
 python-dotenv==1.0.1
 PyGithub==2.5.0
 gevent==24.11.1
-requests==2.23.3
+requests==2.32.3
+descope==1.7.0

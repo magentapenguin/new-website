@@ -22,6 +22,9 @@ const setTheme = (theme) => {
 }
 const applyTheme = (theme) => {
     document.documentElement.setAttribute('data-bs-theme', theme);
+    document.querySelectorAll('[data-requires-theme]').forEach(element => {
+        element.setAttribute(element.dataset.requiresTheme, theme);
+    });
 }
 
 // Watch for changes to localStorage
