@@ -4,7 +4,7 @@
     "sass": "^1.82.0"
   },
   "scripts": {
-    "build-css": "npx sass ./scss/styles.scss ./css/styles.css",
-    "build": "npx sass ./scss/styles.scss ./css/styles.css"
+    "build-css": "npx sass scss/custom.scss css/styles.css",
+    "build": "npx sass scss/custom.scss css/styles.css"
   }
 }
