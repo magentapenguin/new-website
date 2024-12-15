@@ -99,6 +99,7 @@ def contact():
 
 
 @app.route("/admin")
+@require_auth
 def admin():
     return bottle.template("admin.tpl.html")
 
