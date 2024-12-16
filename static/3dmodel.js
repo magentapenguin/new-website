@@ -29,24 +29,19 @@ firstPass.params.saoIntensity = 0.15;
 firstPass.params.saoScale = 100;
 firstPass.params.saoKernelRadius = 100;
 firstPass.params.saoMinResolution = 0;
-const bloomPass = new UnrealBloomPass( new THREE.Vector2( container.clientWidth, container.clientHeight ), 1.5, 0.4, 0.85 );
-bloomPass.threshold = 0.1;
-bloomPass.strength = 0.1;
-bloomPass.radius = 0.2;
 const renderPass = new TAARenderPass( scene, camera );
 const outputPass = new OutputPass();
 
 composer.addPass( renderPass );
 composer.addPass( firstPass );
-composer.addPass( bloomPass );
 composer.addPass( outputPass );
 
-const light = new THREE.AmbientLight(0xffffff, 5);
+const light = new THREE.AmbientLight(0xffffff, 10);
 scene.add(light);
-const pointlight1 = new THREE.PointLight(0xffffff, 40);
+const pointlight1 = new THREE.PointLight(0xffffff, 20);
 pointlight1.position.set(3, 4, 0);
 scene.add(pointlight1);
-const light2 = new THREE.RectAreaLight(0xffffff, 60);
+const light2 = new THREE.RectAreaLight(0xffffff, 30);
 light2.position.set(0, 4, 7);
 scene.add(light2);
 // floor plane
