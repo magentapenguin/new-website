@@ -34,7 +34,7 @@ app = bottle.default_app()
 def require_auth(f):
     def wrapper(*args, **kwargs):
         token = bottle.request.headers.get("Authorization")
-        if not descope_client.validate_session(token):
+        if not token or not descope_client.validate_session(token):
             return bottle.HTTPError(403, "Forbidden")
         return f(*args, **kwargs)
 
