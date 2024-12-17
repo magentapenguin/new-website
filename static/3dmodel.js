@@ -82,10 +82,10 @@ if (!WebGL.isWebGL2Available()) {
 }
 
 function resize() {
-    camera.aspect = container.innerWidth / container.innerHeight;
+    camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(container.innerWidth, container.innerHeight);
-    composer.setSize(container.innerWidth, container.innerHeight);
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    composer.setSize(container.clientWidth, container.clientHeight);
     
 }
 
