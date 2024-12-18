@@ -103,9 +103,9 @@ def contact():
 def admin():
     return bottle.template("admin.tpl.html")
 
-@app.route("/signup")
-def signup():
-    return bottle.template("signup.tpl.html",DESCOPE_KEY=DESCOPE_KEY)
+@app.route("/user")
+def signuporin():
+    return bottle.template("user.tpl.html",DESCOPE_KEY=DESCOPE_KEY)
 
 @app.route("/projects")
 def projects():

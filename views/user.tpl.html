@@ -1,12 +1,12 @@
 % rebase('base.tpl.html')
 <descope-wc
 	project-id="{{ DESCOPE_KEY }}"
-	flow-id="sign-up"
+	flow-id="sign-up-or-in"
 	data-requires-theme="theme"
 />
 
 <script>
 	const sdk = Descope({ projectId: '{{ DESCOPE_KEY }}', persistTokens: true, autoRefresh: true });
 	const wcElement = document.getElementsByTagName('descope-wc')[0];
-
+	
 </script>
